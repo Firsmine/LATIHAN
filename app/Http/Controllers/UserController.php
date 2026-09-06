@@ -68,4 +68,11 @@ class UserController extends Controller
             'message'=>'Logout Success'
         ]);
     }
+
+    public function me(Request $request){
+        return response()->json([
+            'success'=>True,
+            'data'=>$request->user()
+        ]);
+    }
 }
