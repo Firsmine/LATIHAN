@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $tasks = Task::where('user_id', auth()->id())->get();
         return response()->json([
@@ -24,7 +25,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = Validator::make($request->all(), [
+            'title'=>'required|string|max:255',
+            'description'=>'nullable|string',
+            'status'=>'nullable|in:pending,in_progress,completed',
+            'deadline'=>'nullable|date'
+        ]);
     }
 
     /**
