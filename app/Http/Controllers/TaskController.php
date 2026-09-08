@@ -31,6 +31,13 @@ class TaskController extends Controller
             'status'=>'nullable|in:pending,in_progress,completed',
             'deadline'=>'nullable|date'
         ]);
+        if($validated->fails()){
+            return response()->json([
+                'success'=>false,
+                'message'=>'Invalid Field',
+                'errors'=>$validated->errors()
+            ]);
+        }
     }
 
     /**
