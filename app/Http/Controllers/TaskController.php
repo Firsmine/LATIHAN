@@ -40,6 +40,12 @@ class TaskController extends Controller
         }
 
         $taks = $request->user()->tasks()->create($validator->validated());
+
+        return response()->json([
+            'success'=>true,
+            'message'=>'Task added.',
+            'data'=>$taks
+        ]);
     }
 
     /**
