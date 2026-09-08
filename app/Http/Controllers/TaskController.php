@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -9,9 +10,13 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tasks = Task::where('user_id', auth()->id())->get();
+        return response()->json([
+            'success'=>True,
+            'data'=>$tasks
+            ]);
     }
 
     /**
